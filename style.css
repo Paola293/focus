@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Arial Black', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #000;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Imagem de Fundo */
+.bg-image {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px) brightness(0.8);
+  transform: scale(1.05);
+  transition: filter 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+/* Área fixa da palavra para detectar o mouse */
+.text-wrapper {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Texto */
+.focus-text {
+  color: #ffffff;
+  font-size: 8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  user-select: none;
+  text-transform: uppercase;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  pointer-events: none; /* A detecção é feita pelo .text-wrapper */
+  
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- EFEITO HOVER (Disparado estritamente na área do texto original) --- */
+
+.text-wrapper:hover .focus-text {
+  transform: scale(3.5);
+  filter: blur(20px);
+  opacity: 0.15;
+}
+
+.container:has(.text-wrapper:hover) .bg-image {
+  filter: blur(0px) brightness(1);
+  transform: scale(1);
+}
